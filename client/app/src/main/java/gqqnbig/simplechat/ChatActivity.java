@@ -1,13 +1,15 @@
 package gqqnbig.simplechat;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 public class ChatActivity extends AppCompatActivity {
+
+    private static int senderID;
+    private static int receiverID;
+    private static int timer;
+    private static String message;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,4 +17,20 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
     }
 
+
+    public void setSenderID(){
+        ;
+    }
+
+    public void setReceiverID(){
+        ;
+    }
+
+    public void setTimer(){
+        ;
+    }
+
+    public void setMessage(){
+        ;
+    }
 }
