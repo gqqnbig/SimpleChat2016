@@ -1,13 +1,17 @@
 package gqqnbig.simplechat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
@@ -43,6 +47,18 @@ public class MainActivity extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.contacts_list);
         adp = new ContactAdapter(getApplicationContext(), R.layout.cadp);
         lv.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+
+        Context context = getApplicationContext();
+        int permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE);
+        if (permissionCheck == PackageManager.PERMISSION_DENIED)
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+        else
+            createUI();
+    }
+
+
+
+    private void createUI() {
         TelephonyManager imei = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         final String sid = imei.getDeviceId().toString();
         //Get the Contact of yourself
@@ -96,6 +112,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    createUI();
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
 
     private boolean getContact(String host){
         PrintWriter out =null;
