@@ -1,0 +1,21 @@
+INDEX VERSION 1.127+E:\UCLAchat\GITHUB\SimpleChat\.metadata\.plugins\org.eclipse.jdt.core
+3045868724.index
+3231472674.index
+4202600244.index
+3392843127.index
+1166326449.index
+1289911969.index
+3920458890.index
+882150708.index
+2040813865.index
+889527592.index
+1280402761.index
+2461411560.index
+3784036412.index
+3347669136.index
+3616461031.index
+1530197650.index
+4033920976.index
+2790403920.index
+4075476442.index
+355346266.index
