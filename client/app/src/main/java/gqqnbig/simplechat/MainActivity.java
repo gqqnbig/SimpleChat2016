@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -17,18 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -60,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void createUI() {
         TelephonyManager imei = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        final String sid = imei.getDeviceId().toString();
+        final String sid = imei.getDeviceId();
         //Get the Contact of yourself
         adp.add(new Contact("222222222222222"));
         new Thread(new getContactThread(new ContactHandler(),sid)).start();
