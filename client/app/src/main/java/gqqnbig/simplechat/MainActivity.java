@@ -20,8 +20,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
-import java.io.*;
-import java.net.Socket;
 import java.util.ArrayList;
 
 /**
@@ -55,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         final String sid = imei.getDeviceId();
         //Get the Contact of yourself
         adp.add(new Contact("222222222222222"));
-        new Thread(new getContactThread(new ContactHandler(),sid)).start();
+        new Thread(new GetContactThread(new ContactHandler(),sid)).start();
         lv.setAdapter(adp);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -126,64 +124,6 @@ public class MainActivity extends AppCompatActivity {
 
             // other 'case' lines to check for other
             // permissions this app might request
-        }
-    }
-
-    private boolean getContact(String host){
-        PrintWriter out =null;
-        BufferedReader in = null;
-        Socket socket=null;
-        boolean flag=true;
-        while (true){
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            try {
-
-
-                socket = new Socket("192.168.43.130", 8888);
-                out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
-                        socket.getOutputStream())), true);
-                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            out.println("##33");
-            out.println(host);
-
-            String Rhost=null;
-            String Rguest=null;
-
-            try {
-                if (!socket.isClosed()) {
-                    if (socket.isConnected()) {
-                        if (!socket.isInputShutdown()) {
-                            while(flag){
-                                Rhost=in.readLine();
-                                if(Rhost==null){socket.close();return false;}
-                                if(Rhost.equals("##33")){
-                                    socket.close();
-                                    return true;
-                                }else {
-                                    Rguest=in.readLine();
-                                    if(Rguest==null){socket.close();return false;}
-                                    else adp.add(new Contact(Rguest));
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    socket.close();
-                    return false;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
         }
     }
 
